@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://ordinario.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_c3165f0b97204e61baea16852bad8525 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_4a64bfea097c484e843d539e50725566 }}
+        registry: https://registryordinario.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_8715cd8ded06487e84e43e2f5b3d1fd7 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_fd3bc4ca0c4f4940b4d843a4bae984ee }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ordinario.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_c3165f0b97204e61baea16852bad8525 }}/infraordinario:${{ github.sha }}
+        tags: registryordinario.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_8715cd8ded06487e84e43e2f5b3d1fd7 }}/ordinario:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'infraempordinario'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c5895f001dfa492a88faae3f034be4c4 }}
-        images: 'ordinario.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_c3165f0b97204e61baea16852bad8525 }}/infraordinario:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_863a5da859f7435999a3ee3ff4207246 }}
+        images: 'registryordinario.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_8715cd8ded06487e84e43e2f5b3d1fd7 }}/ordinario:${{ github.sha }}'
